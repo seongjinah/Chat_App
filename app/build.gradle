@@ -42,6 +42,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.1'
     implementation 'com.google.firebase:firebase-database:20.0.0'
     implementation 'com.google.firebase:firebase-analytics:19.0.0'
+    implementation 'com.google.firebase:firebase-storage:20.0.0'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     //add this library and this
     implementation 'de.hdodenhof:circleimageview:2.2.0'

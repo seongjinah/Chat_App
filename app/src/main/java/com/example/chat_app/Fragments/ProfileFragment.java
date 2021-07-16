@@ -50,9 +50,9 @@ public class ProfileFragment extends Fragment {
     private FirebaseUser fuser;
     private DatabaseReference reference;
 
-    private StorageReference storageReference;
-    private static final int IMAGE_REQUEST = 1;
-    private Uri imageUri;
+    private StorageReference storageReference; //FirebaseStorage Reference를 위한 것
+    private static final int IMAGE_REQUEST = 1; //image를 요청할 때 보내는 request
+    private Uri imageUri; //image의 uri
     private StorageTask uploadTask;
 
     @Override
@@ -111,15 +111,15 @@ public class ProfileFragment extends Fragment {
     }
 
     private void uploadImage() {
-        final ProgressDialog pd = new ProgressDialog(getContext());
-        pd.setMessage("Uploading");
-        pd.show();
+        final ProgressDialog pd = new ProgressDialog(getContext()); //context에 표시하는 progressdialog 인스턴스 생성
+        pd.setMessage("Uploading"); //progressdialog에 나타낼 text
+        pd.show(); //progressdialog를 보여주기
 
-        if(imageUri != null) {
-            final StorageReference fileReference = storageReference.child(System.currentTimeMillis()
-                    +"."+getFileExtension(imageUri));
+        if(imageUri != null) { //intent의 결과로 imageUri가 넘어왔다면,
+            final StorageReference fileReference = storageReference.child(System.currentTimeMillis() //FirebaseStorage 내부에 upload 내부에
+                    +"."+getFileExtension(imageUri)); //"현재시간.형식"라는 이름의 StorageReference 만들기
 
-            uploadTask = fileReference.putFile(imageUri);
+            uploadTask = fileReference.putFile(imageUri); //FirebaseStorage에 file을 추가하는 Task를 StorageTask에 할당
             uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -127,7 +127,7 @@ public class ProfileFragment extends Fragment {
                         throw task.getException();
                     }
 
-                    return fileReference.getDownloadUrl();
+                    return fileReference.getDownloadUrl(); //file의 다운로드 url 반환
                 }
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
